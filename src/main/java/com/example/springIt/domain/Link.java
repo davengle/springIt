@@ -10,7 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-@NoArgsConstructor Constructor
+@NoArgsConstructor
 @Data
 public class Link {
 
