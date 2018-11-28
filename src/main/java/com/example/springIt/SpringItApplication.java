@@ -26,18 +26,4 @@ public class SpringItApplication {
 		System.out.println("Welcome to Spring IT, take 2");
 	}
 
-	@Bean
-	@Profile("dev")
-	CommandLineRunner runner(){
-		return args -> {
-			System.out.println("Welcome message: " +  springitProperties.getWelcomeMsg());
-			System.out.println("Test message: " +  springitProperties.getTestMsg());
-			System.out.println("This is something that we would only do in dev");
-			log.error("CommandLineRunner.run();");
-			log.warn("CommandLineRunner.run();");
-			log.info("CommandLineRunner.run();");
-			log.debug("CommandLineRunner.run();");
-			log.trace("CommandLineRunner.run();");
-		};
-	}
 }
