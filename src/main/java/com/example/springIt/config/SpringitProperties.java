@@ -1,6 +1,8 @@
 package com.example.springIt.config;
 
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 
 @ConfigurationProperties("springit")
 public class SpringitProperties {
@@ -17,6 +19,7 @@ public class SpringitProperties {
      */
 
     private String testMsg = "Test Message";
+
 
     public String getWelcomeMsg() {
         return welcomeMsg;

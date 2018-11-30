@@ -11,9 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Data
 @NoArgsConstructor
 @RequiredArgsConstructor
+@Getter
+@Setter
 @Audited
 public class Link {
 
@@ -32,5 +33,15 @@ public class Link {
         comments.add(comment);
     }
 
-
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("List entries ");
+        sb.append("Id: ");
+        sb.append(this.getId());
+        sb.append("Title: ");
+        sb.append(this.getTitle());
+        sb.append("URL: ");
+        sb.append(this.getUrl());
+        return sb.toString();
+    }
 }

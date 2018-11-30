@@ -5,6 +5,12 @@ import com.example.springIt.domain.Comment;
 import com.example.springIt.domain.Link;
 import com.example.springIt.repository.CommentRepository;
 import com.example.springIt.repository.LinkRepository;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.envers.AuditReader;
+import org.hibernate.envers.AuditReaderFactory;
+import org.hibernate.envers.query.AuditEntity;
+import org.hibernate.envers.query.AuditQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +21,8 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
 
+import javax.persistence.EntityManagerFactory;
+import java.util.List;
 import java.util.TimeZone;
 
 @SpringBootApplication
@@ -25,12 +33,18 @@ public class SpringItApplication {
     @Autowired
     private SpringitProperties springitProperties;
 
+    @Autowired
+    private EntityManagerFactory entityManagerFactory;
+
+
     private static final Logger log = LoggerFactory.getLogger(SpringItApplication.class);
 
     public static void main(String[] args) {
         SpringApplication.run(SpringItApplication.class, args);
         System.out.println("Welcome to Spring IT, take 2");
+
     }
+
 
     //@Bean
     CommandLineRunner runner(LinkRepository linkRepository, CommentRepository commentRepository){
@@ -45,7 +59,18 @@ public class SpringItApplication {
             link.setTitle("Continuing with Spring Boot2");
             linkRepository.save(link);
 
-        };
+            link.setTitle("Auditing with Spring Boot2");
+            linkRepository.save(link);
 
+            Session session = entityManagerFactory.unwrap(SessionFactory.class).openSession();
+            AuditReader auditReader = AuditReaderFactory.get(session);
+            AuditQuery query = auditReader.createQuery().forRevisionsOfEntity(Link.class, true, true);
+            query.add(AuditEntity.id().eq(link.getId()));
+            List<Link> audit = query.getResultList();
+            System.out.println(audit);
+
+        };
     }
+
+
 }

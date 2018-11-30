@@ -1,9 +1,6 @@
 package com.example.springIt.domain;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.Entity;
@@ -14,7 +11,8 @@ import javax.persistence.ManyToOne;
 @Entity
 @NoArgsConstructor
 @RequiredArgsConstructor
-@Data
+@Getter
+@Setter
 @Audited
 public class Comment {
 

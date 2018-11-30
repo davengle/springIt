@@ -1,16 +1,17 @@
-package com.example.springIt;
+package com.example.springIt.controller;
 
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class HomeController {
 
 
-    @GetMapping("/")
+    @RequestMapping("/")
     public String home(){
-        return "Hello David";
+        return "Hello Davey";
     }
 
 }
