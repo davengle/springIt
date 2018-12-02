@@ -22,6 +22,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
 
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import java.util.List;
 import java.util.TimeZone;
 
@@ -41,33 +42,40 @@ public class SpringItApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(SpringItApplication.class, args);
-        System.out.println("Welcome to Spring IT, take 2");
+        System.out.println("How are ya?");
 
     }
 
 
-    //@Bean
+    @Bean
     CommandLineRunner runner(LinkRepository linkRepository, CommentRepository commentRepository){
         return args -> {
-            Link link = new Link("Getting started with Spring Boot 2", "https://therealdanvega.com/spring-boot-2");
-            linkRepository.save(link);
 
-            Comment comment = new Comment("This Spring Boot 2 link is awesome!", link);
-            commentRepository.save(comment);
-            link.addComment(comment);
+            System.out.println(springitProperties.getYmlMsg());
+            System.out.println(springitProperties.getEnvSpecificMsg());
+            System.out.println(springitProperties.getPropertiesMsg());
+            System.out.println(springitProperties.getDefaultMsg());
 
-            link.setTitle("Continuing with Spring Boot2");
-            linkRepository.save(link);
 
-            link.setTitle("Auditing with Spring Boot2");
-            linkRepository.save(link);
-
-            Session session = entityManagerFactory.unwrap(SessionFactory.class).openSession();
-            AuditReader auditReader = AuditReaderFactory.get(session);
-            AuditQuery query = auditReader.createQuery().forRevisionsOfEntity(Link.class, true, true);
-            query.add(AuditEntity.id().eq(link.getId()));
-            List<Link> audit = query.getResultList();
-            System.out.println(audit);
+//            Link link = new Link("Getting started with Spring Boot 2", "https://therealdanvega.com/spring-boot-2");
+//            linkRepository.save(link);
+//
+//            Comment comment = new Comment("This Spring Boot 2 link is awesome!", link);
+//            commentRepository.save(comment);
+//            link.addComment(comment);
+//
+//            link.setTitle("Continuing with Spring Boot2");
+//            linkRepository.save(link);
+//
+//            link.setTitle("Auditing with Spring Boot2");
+//            linkRepository.save(link);
+//
+//            Session session = entityManagerFactory.unwrap(SessionFactory.class).openSession();
+//            AuditReader auditReader = AuditReaderFactory.get(session);
+//            AuditQuery query = auditReader.createQuery().forRevisionsOfEntity(Link.class, true, true);
+//            query.add(AuditEntity.id().eq(link.getId()));
+//            List<Link> audit = query.getResultList();
+//            System.out.println(audit);
 
         };
     }
