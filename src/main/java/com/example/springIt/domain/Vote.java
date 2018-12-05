@@ -12,7 +12,7 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @Data
 @Audited
-public class Vote {
+public class Vote extends Auditable{
 
     @Id
     @GeneratedValue

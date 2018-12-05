@@ -1,16 +1,9 @@
 package com.example.springIt;
 
 import com.example.springIt.config.SpringitProperties;
-import com.example.springIt.domain.Comment;
-import com.example.springIt.domain.Link;
 import com.example.springIt.repository.CommentRepository;
 import com.example.springIt.repository.LinkRepository;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.envers.AuditReader;
-import org.hibernate.envers.AuditReaderFactory;
-import org.hibernate.envers.query.AuditEntity;
-import org.hibernate.envers.query.AuditQuery;
+import org.ocpsoft.prettytime.PrettyTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +12,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Profile;
 
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import java.util.List;
-import java.util.TimeZone;
 
 @SpringBootApplication
 @EnableConfigurationProperties(SpringitProperties.class)
@@ -46,6 +35,11 @@ public class SpringItApplication {
 
     }
 
+    @Bean
+    PrettyTime prettyTime(){
+        return new PrettyTime();
+    }
+
 
     @Bean
     CommandLineRunner runner(LinkRepository linkRepository, CommentRepository commentRepository){
@@ -57,6 +51,7 @@ public class SpringItApplication {
             System.out.println(springitProperties.getDefaultMsg());
 
 
+              //TODO: code is commentted out while I set up Database Loader in bootstrap.  Need to move this code over to that class.
 //            Link link = new Link("Getting started with Spring Boot 2", "https://therealdanvega.com/spring-boot-2");
 //            linkRepository.save(link);
 //

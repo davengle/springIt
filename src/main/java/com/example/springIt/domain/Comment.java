@@ -14,7 +14,7 @@ import javax.persistence.ManyToOne;
 @Getter
 @Setter
 @Audited
-public class Comment {
+public class Comment extends Auditable{
 
     @Id
     @GeneratedValue
