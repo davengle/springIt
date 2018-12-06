@@ -1,7 +1,0 @@
-springit:
-  welcome-msg: Welcome
-  test-msg: Test.yml
-
-server:
-  port: 8080
-

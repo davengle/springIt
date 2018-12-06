@@ -1,36 +1,39 @@
 package com.example.springIt.config;
 
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 
 @ConfigurationProperties("springit")
+@Getter
+@Setter
 public class SpringitProperties {
 
 
     /**
      * This is our welcome msg
      */
-    private String welcomeMsg = "Hello World!";
+    private String ymlMsg = "Yml message from class";
 
 
     /**
      *  This is a test msg
      */
 
-    private String testMsg = "Test Message";
+    private String envSpecificMsg = "Env Specific Message from class";
 
-    public String getWelcomeMsg() {
-        return welcomeMsg;
-    }
+    /**
+     /**
+     *  This message will display if overwritten in properties, but not in env specific properties file or yaml file
+     */
 
-    public void setWelcomeMsg(String welcomeMsg) {
-        this.welcomeMsg = welcomeMsg;
-    }
+    private String propertiesMsg = "Properties Message from class";
 
-    public String getTestMsg() {
-        return testMsg;
-    }
+     /**
+     *  This message will display if not overwritten in properties, property specific properties file or yaml file
+     */
 
-    public void setTestMsg(String testMsg) {
-        this.testMsg = testMsg;
-    }
+    private String defaultMsg = "Default Message from class";
 }

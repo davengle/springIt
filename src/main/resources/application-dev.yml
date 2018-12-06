@@ -1,0 +1,8 @@
+springit:
+  ymlMsg: Yml message from yml file
+  envSpecificMsg: Env specific message from yml file
+  propertiesMsg: Properties Msg from yml file
+
+
+server:
+  port: 8080
