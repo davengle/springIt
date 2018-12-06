@@ -3,12 +3,14 @@ package com.example.springIt.domain;
 import com.example.springIt.service.BeanUtil;
 import lombok.*;
 import org.hibernate.envers.Audited;
+import org.hibernate.validator.constraints.URL;
 import org.ocpsoft.prettytime.PrettyTime;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotEmpty;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.LocalDateTime;
@@ -26,12 +28,16 @@ import java.util.List;
 @Audited
 public class Link extends Auditable{
 
-    @Id
-    @GeneratedValue
+    @Id @GeneratedValue
     private Long id;
+
     @NonNull
+    @NotEmpty(message = "Please enter a title")
     private String title;
+
     @NonNull
+    @NotEmpty(message = "Please enter a URL")
+    @URL(message = "Please enter a valid URL")
     private String url;
 
     @OneToMany(mappedBy = "link")
@@ -58,13 +64,13 @@ public class Link extends Auditable{
 
     public String toString(){
         StringBuilder sb = new StringBuilder();
-        sb.append("List entries ");
-        sb.append("Id: ");
-        sb.append(this.getId());
-        sb.append("Title: ");
-        sb.append(this.getTitle());
-        sb.append("URL: ");
-        sb.append(this.getUrl());
+        sb.append("List entries ")
+            .append("Id: ")
+            .append(this.getId())
+            .append(" Title: ")
+            .append(this.getTitle())
+            .append(" URL: ")
+            .append(this.getUrl());
         return sb.toString();
     }
 }
