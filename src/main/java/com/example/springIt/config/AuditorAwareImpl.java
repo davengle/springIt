@@ -9,7 +9,7 @@ import java.util.Optional;
 public class AuditorAwareImpl implements AuditorAware {
     @Override
     public Optional getCurrentAuditor() {
-        if (SecurityContextHolder.getContext().getAuthentication()==null){
+        if (SecurityContextHolder.getContext().getAuthentication()==null || SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")){
             return Optional.of("dev@gmail.com");
         }
         return Optional.of(((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getEmail());
