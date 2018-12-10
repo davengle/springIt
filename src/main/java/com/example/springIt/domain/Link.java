@@ -24,7 +24,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @Getter
 @Setter
-//@Data
 @Audited
 public class Link extends Auditable{
 
