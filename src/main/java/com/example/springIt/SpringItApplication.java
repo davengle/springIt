@@ -12,10 +12,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect;
 
 @SpringBootApplication
 @EnableConfigurationProperties(SpringitProperties.class)
+@EnableTransactionManagement
 public class SpringItApplication {
 
 
