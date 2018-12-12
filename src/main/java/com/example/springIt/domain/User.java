@@ -1,11 +1,13 @@
 package com.example.springIt.domain;
 
+import com.example.springIt.domain.validator.PasswordsMatch;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.util.Collection;
 import java.util.HashSet;
@@ -17,17 +19,19 @@ import java.util.stream.Collectors;
 @Setter
 @RequiredArgsConstructor
 @NoArgsConstructor
+@PasswordsMatch
 public class User implements UserDetails {
 
     @GeneratedValue @Id
     private Long id;
 
     @NonNull
-    @Size(min = 8, max = 20)
+    @NotEmpty(message = "Please enter a valid email address")
     @Column(nullable = false, unique = true)
     private String email;
 
     @NonNull
+    @Size(min=8, message = "Password must be at least 8 character long")
     @Column(length = 100)
     private String password;
 
@@ -44,6 +48,34 @@ public class User implements UserDetails {
 
     )
     private Set<Role> roles = new HashSet<>();
+
+    @NonNull
+    @NotEmpty(message = "You must enter First Name")
+    private String firstName;
+
+    @NonNull
+    @NotEmpty(message = "You must enter Last Name")
+    private String lastName;
+
+    @Transient
+    @Setter(AccessLevel.NONE)
+    private String fullName;
+
+    @NonNull
+    @NotEmpty(message = "Please enter alias.")
+    @Column(nullable = false, unique = true)
+    private String alias;
+
+    @Transient
+    @NotEmpty(message = "Please enter password confirmation")
+    private String confirmPassword;
+
+    private String activationCode;
+
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
+
 
     public void addRole(Role role) {
         roles.add(role);
