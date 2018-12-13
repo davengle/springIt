@@ -26,8 +26,9 @@ public class UserService {
     }
 
     public User register(User user) {
-        BCryptPasswordEncoder encoder = BeanUtil.getBean(BCryptPasswordEncoder.class);
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String secret = "{bcrypt}" + encoder.encode(user.getPassword());
+//        String secret = encoder.encode(user.getPassword());
         user.setPassword(secret);
         user.setConfirmPassword(secret);
         user.addRole(roleService.findByName("ROLE_USER"));

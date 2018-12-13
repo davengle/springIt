@@ -8,6 +8,7 @@ import com.example.springIt.repository.CommentRepository;
 import com.example.springIt.repository.LinkRepository;
 import com.example.springIt.repository.RoleRepository;
 import com.example.springIt.repository.UserRepository;
+import com.example.springIt.service.BeanUtil;
 import com.example.springIt.service.MailService;
 import com.example.springIt.service.RoleService;
 import com.example.springIt.service.UserService;
@@ -96,7 +97,7 @@ public class DatabaseLoader implements CommandLineRunner {
                 commentRepository.save(comment);
                 //link.addComment(comment);
             }
-        };
+        }
     }
 
     private void createLinks(ArrayList<Link> links) {
@@ -126,7 +127,9 @@ public class DatabaseLoader implements CommandLineRunner {
 
     private void createUsersAndRole() {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        String secret = "{bcrypt}" + encoder.encode("password");
+//        BCryptPasswordEncoder encoder = BeanUtil.getBean(BCryptPasswordEncoder.class);
+        String secret = "{bcrypt}" + encoder.encode("secret");
+//        String secret = encoder.encode("secret");
 
         Role userRole = new Role("ROLE_USER");
         roleService.save(userRole);
@@ -138,13 +141,12 @@ public class DatabaseLoader implements CommandLineRunner {
         user.addRole(userRole);
         users.put("user@gmail.com",user);
 
-        User admin = new User("admin@gmail.com",secret,true,"Joe","Admin","masteradmin");
+        User admin = new User("admin@gmail.com",secret,true,"Joe","Admin","admin");
         admin.setConfirmPassword(secret);
-        admin.setAlias("joeadmin");
         admin.addRole(adminRole);
         users.put("admin@gmail.com",admin);
 
-        User master = new User("super@gmail.com",secret,true,"Super","User","superduper");
+        User master = new User("super@gmail.com",secret,true,"Super","User","super");
         master.setConfirmPassword(secret);
         master.addRoles(new HashSet<>(Arrays.asList(userRole,adminRole)));
         users.put("super@gmail.com",master);

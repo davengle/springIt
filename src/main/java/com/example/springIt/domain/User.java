@@ -31,7 +31,7 @@ public class User implements UserDetails {
     private String email;
 
     @NonNull
-    @Size(min=8, message = "Password must be at least 8 character long")
+    @Size(min=2, message = "Password must be at least 2 character long")
     @Column(length = 100)
     private String password;
 
